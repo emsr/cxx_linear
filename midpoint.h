@@ -1,29 +1,35 @@
-#ifndef MIDPOINT_H
-#define MIDPOINT_H 1
+#ifndef LINEAR_H
+#define LINEAR_H 1
 
 namespace std
 {
 
-  template<typename _Float>
-    std::enable_if_t<_Float, std::is_floating_point_v<_Float>>
-    lerp(_Float __a, _Float __b, _Float __t)
+  template<typename _Int>
+    _Int
+    midpoint(_Int __a, _Int __b)
     {
-      if (std::isnan(__a) || std::isnan(__b) || std::isnan(__t))
+      using _UInt = std::make_unsigned_t<_Int>;
+      return _Int(_UInt(__a) + (_UInt(__b) - _UInt(__a)) / 2);
+    }
+
+  template<typename _Tp>
+    _Tp*
+    midpoint(_Tp* __a, _Tp* __b)
+    { return static_cast<_Tp*>(midpoint(intptr_t(__a), intptr_t(__b))); }
+
+// What about infinity?
+  template<typename _Float>
+    Float
+    midpoint(_Float __a, _Float __b)
+    {
+      if (std::isnan(__a) || std::isnan(__b))
 	return std::numeric_limits<_Float>::quiet_NaN();
-      else if (__a <= 0 && __b >= 0 || __a >= 0 && __b <= 0)
-	// ab <= 0 but product could overflow.
-	return __t * __b + (1 - __t) * __a;
-      else if (__t == _Float{1})
-	return __b;
       else
-	{ // monotonic near t == 1.
-	  const auto __x = __a + __t * (__b - __a);
-	  return __t > _Float{1} == __b > __a
-		 ? std::max(__b, __x)
-		 : std::min(__b,__x);
-	}
+	return std::isnormal(__a) && std::isnormal(__b)
+		? __a / 2 + __b / 2
+		: (__a + __b) / 2;
     }
 
 }
 
-#endif // MIDPOINT_H
+#endif // LINEAR_H
