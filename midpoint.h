@@ -1,11 +1,14 @@
 #ifndef LINEAR_H
 #define LINEAR_H 1
 
+#include <cmath>
+
 namespace std
 {
 
   template<typename _Int>
-    _Int
+    std::enable_if_t<std::is_integral_v<_Int> && !std::is_same_v<_Int, bool>,
+		     _Int>
     midpoint(_Int __a, _Int __b)
     {
       using _UInt = std::make_unsigned_t<_Int>;
@@ -19,7 +22,7 @@ namespace std
 
 // What about infinity?
   template<typename _Float>
-    Float
+    std::enable_if_t<std::is_floating_point_v<_Float>, _Float>
     midpoint(_Float __a, _Float __b)
     {
       if (std::isnan(__a) || std::isnan(__b))
