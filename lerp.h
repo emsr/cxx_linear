@@ -1,5 +1,5 @@
-#ifndef MIDPOINT_H
-#define MIDPOINT_H 1
+#ifndef LERP_H
+#define LERP_H 1
 
 #include <cmath>
 
@@ -7,7 +7,7 @@ namespace std
 {
 
   template<typename _Float>
-    std::enable_if_t<std::is_floating_point_v<_Float>, _Float>
+    constexpr std::enable_if_t<std::is_floating_point_v<_Float>, _Float>
     lerp(_Float __a, _Float __b, _Float __t)
     {
       if (std::isnan(__a) || std::isnan(__b) || std::isnan(__t))
@@ -27,6 +27,6 @@ namespace std
 	}
     }
 
-}
+} // namespace std
 
-#endif // MIDPOINT_H
+#endif // LERP_H
