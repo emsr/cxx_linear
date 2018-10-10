@@ -15,15 +15,17 @@ namespace std
       else if (__a <= _Float{0} && __b >= _Float{0}
 	    || __a >= _Float{0} && __b <= _Float{0})
 	// ab <= 0 but product could overflow.
-	return __t * __b + (1 - __t) * __a;
+	//return __t * __b + (_Float{1} - __t) * __a;
+	return std::fma(__t, __b, (_Float{1} - __t) * __a)
       else if (__t == _Float{1})
 	return __b;
       else
 	{ // monotonic near t == 1.
-	  const auto __x = __a + __t * (__b - __a);
+	  //const auto __x = __a + __t * (__b - __a);
+	  const auto __x = std::fma(__t, __b - __a, __a);
 	  return __t > _Float{1} == __b > __a
 		 ? std::max(__b, __x)
-		 : std::min(__b,__x);
+		 : std::min(__b, __x);
 	}
     }
 
