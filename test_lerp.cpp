@@ -17,11 +17,11 @@ template<typename Real>
     const auto b = Real{+5};
     const auto t = Real{3} / Real{4};
     auto ca = std::lerp(a, b, Real{0});
-std::cout << "ca = " << ca << '\n';
-std::cout << std::boolalpha << "ca == a: " << (ca == a) << '\n';
+    std::cout << "ca = " << ca << '\n';
+    std::cout << std::boolalpha << "ca == a: " << (ca == a) << '\n';
     auto cb = std::lerp(a, b, Real{1});
-std::cout << "cb = " << cb << '\n';
-std::cout << std::boolalpha << "cb == b: " << (cb == b) << '\n';
+    std::cout << "cb = " << cb << '\n';
+    std::cout << std::boolalpha << "cb == b: " << (cb == b) << '\n';
     return ca == a && cb == b;
   }
 
@@ -33,8 +33,8 @@ template<typename Real>
     const auto b = +std::numeric_limits<Real>::max();
     const auto t = Real{3} / Real{4};
     auto c = std::lerp(a, b, t);
-std::cout << "c = " << c << '\n';
-std::cout << std::boolalpha << "c == b/2: " << (c == b / Real{2}) << '\n';
+    std::cout << "c = " << c << '\n';
+    std::cout << std::boolalpha << "c == b/2: " << (c == b / Real{2}) << '\n';
     return c == b / Real{2};
   }
 
@@ -46,8 +46,8 @@ template<typename Real>
     const auto b = a;
     const auto t = std::numeric_limits<Real>::infinity();
     auto c = std::lerp(a, b, t);
-std::cout << "c = " << c << '\n';
-std::cout << std::boolalpha << "c == a: " << (c == a) << '\n';
+    std::cout << "c = " << c << '\n';
+    std::cout << std::boolalpha << "c == a: " << (c == a) << '\n';
     return c == a;
   }
 
