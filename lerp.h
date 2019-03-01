@@ -12,18 +12,24 @@ namespace std
     {
       if (std::isnan(__a) || std::isnan(__b) || std::isnan(__t))
 	return std::numeric_limits<_Float>::quiet_NaN();
-      else if (__a <= _Float{0} && __b >= _Float{0}
-	    || __a >= _Float{0} && __b <= _Float{0})
+      else if ((__a <= _Float{0} && __b >= _Float{0})
+	    || (__a >= _Float{0} && __b <= _Float{0}))
 	// ab <= 0 but product could overflow.
-	//return __t * __b + (_Float{1} - __t) * __a;
-	return std::fma(__t, __b, (_Float{1} - __t) * __a)
+#ifndef FMA
+	return __t * __b + (_Float{1} - __t) * __a;
+#else
+	return std::fma(__t, __b, (_Float{1} - __t) * __a);
+#endif
       else if (__t == _Float{1})
 	return __b;
       else
 	{ // monotonic near t == 1.
-	  //const auto __x = __a + __t * (__b - __a);
+#ifndef FMA
+	  const auto __x = __a + __t * (__b - __a);
+#else
 	  const auto __x = std::fma(__t, __b - __a, __a);
-	  return __t > _Float{1} == __b > __a
+#endif
+	  return (__t > _Float{1}) == (__b > __a)
 		 ? std::max(__b, __x)
 		 : std::min(__b, __x);
 	}

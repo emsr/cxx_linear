@@ -1,4 +1,4 @@
-CXX = /home/ed/bin/bin/g++ -std=c++17 -g
+CXX = /home/ed/bin/bin/g++ -std=c++17 -g -Wall -Wextra
 
 all: test_lerp test_midpoint
 

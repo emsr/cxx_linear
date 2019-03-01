@@ -2,6 +2,7 @@
 #define MIDPOINT_H 1
 
 #include <cmath>
+#include <cstdint>
 
 namespace std
 {
@@ -12,6 +13,12 @@ namespace std
     midpoint(_Int __a, _Int __b) noexcept
     {
       using _UInt = std::make_unsigned_t<_Int>;
+/*
+      const auto __ua = _UInt(__a);
+      const auto __ub = _UInt(__b);
+      const auto __del = (__ub > __ua ? +(__ub - __ua) : -(__ua - __ub));
+      return _Int(__ua + __del / 2);
+*/
       return _Int(_UInt(__a) + (_UInt(__b) - _UInt(__a)) / 2);
     }
 
@@ -31,7 +38,12 @@ namespace std
   template<typename _Tp>
     _Tp*
     midpoint(_Tp* __a, _Tp* __b)
-    { return static_cast<_Tp*>(std::midpoint(intptr_t(__a), intptr_t(__b))); }
+    {
+      //using _Iptr = std::intptr_t;
+      //return static_cast<_Tp*>(__a + std::midpoint(_Iptr(__a), _Iptr(__b)));
+      const auto __diff = (__b - __a) / 2;
+      return __a + __diff;
+    }
 
 } // namespace std
 
