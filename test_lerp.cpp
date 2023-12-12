@@ -1,5 +1,5 @@
 /*
-/home/ed/bin/bin/g++ -std=c++17 -g -Wall -Wextra -o test_lerp test_lerp.cpp
+/home/ed/bin/bin/g++ -std=c++20 -g -Wall -Wextra -o test_lerp test_lerp.cpp
 */
 
 #include <limits>

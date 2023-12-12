@@ -1,5 +1,6 @@
 /*
-/home/ed/bin/bin/g++ -std=c++17 -g -Wall -Wextra -o test_midpoint test_midpoint.cpp
+/home/ed/bin/bin/g++ -std=c++20 -g -Wall -Wextra -o test_midpoint test_midpoint.cpp
+LD_LIBRARY_PATH=/home/ed/bin/lib64 ./test_midpoint
 */
 
 #include <limits>
@@ -51,6 +52,22 @@ template<typename Tp>
     return true;
   }
 
+bool
+test_tiny()
+{
+  auto d = std::numeric_limits<double>::max_digits10;
+  std::cout.precision(d);
+  const double K = 4.4501477170144023e-308;
+  const double X[]
+  {
+      K, std::midpoint(K, K)
+  };
+  std::cout << "X[0] = " << X[0] << '\n';
+  std::cout << "X[1] = " << X[1] << '\n';
+
+  return 0 == (X[1] - X[0]);
+}
+
 int
 main()
 {
@@ -74,6 +91,8 @@ main()
 
   std::cout << "\ntest_ptr\n";
   ok = ok && test_ptr<int>();
+
+  ok = test_tiny();
 
   return ok;
 }

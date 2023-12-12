@@ -6,6 +6,12 @@
 namespace std
 {
 
+  /**
+   * Linearly interpolate from @c a to @c b by fraction @c t.
+   * @f[
+   *    lerp(t; a, b) = t b + (1 - t) a
+   * @f]
+   */
   template<typename _Float>
     constexpr std::enable_if_t<std::is_floating_point_v<_Float>, _Float>
     lerp(_Float __a, _Float __b, _Float __t)
